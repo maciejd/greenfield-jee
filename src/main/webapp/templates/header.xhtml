@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Greenfield</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><h:link outcome="runList">Test Runs</h:link></li>
+                            <li><h:link outcome="suiteList">Test Suites</h:link></li>
+                            <f:subview id="admin" rendered="#{request.isUserInRole('Admin')}">
+                                <li><h:link outcome="/admin/admin.xhtml">Administration</h:link></li>
+                            </f:subview>
+                            <h:form class="navbar-form navbar-right">
+                                <h:commandButton class="btn btn-success" action="login" value="Login" rendered="#{empty request.remoteUser}"/>
+                                <h:commandButton class="btn btn-primary" action="#{userSession.logout()}" value="${labels['logout']}" rendered="#{not empty request.remoteUser}"/>
+                            </h:form>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="../templates/layout.xhtml">
+            <ui:define name="content">
+                <h2>Test Results</h2>
+                <table class="table">
+                    <tr>
+                        <td>
+                            Test result
+                        </td>
+                        <td> 
+                            <h:form>
+                                <h:selectOneMenu class="form-control" id="resultList" value="#{testDetailsBean.testResult.status}" valueChangeListener="#{testDetailsBean.resultHasChanged}" onchange="submit()">
+                                    <f:selectItems value="#{runDetailsBean.statuses}" />
+                                </h:selectOneMenu>
+                            </h:form>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>Result submitted</td> 
+                        <td>#{testDetailsBean.testResult.resultDate}</td> 
+                    </tr>
+                    <tr>
+                        <td>Test Id</td> 
+                        <td>#{testDetailsBean.testResult.id}</td> 
+                    </tr>
+                    <tr>
+                        <td>Test Case Title</td> 
+                        <td>#{testDetailsBean.testResult.testCase.title}</td> 
+                    </tr>
+                    <tr>
+                        <td>Test Case Body</td> 
+                        <td>#{testDetailsBean.testResult.testCase.body}</td> 
+                    </tr>
+                    <tr>
+                        <td>Test Suite</td> 
+                        <td>#{testDetailsBean.testResult.testCase.suite.title}</td> 
+                    </tr>
+                </table>
+                <h:link outcome="/runs/runDetails.xhtml" value="Back" class="btn btn-primary"/>
+            </ui:define>
+            <ui:define name="right">
+                <h:form>
+                    <h:commandButton value="Edit Test Case" action="#{testDetailsBean.editSelectedTestCase()}" class="lonely btn btn-primary" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

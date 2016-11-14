@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <ui:composition template="../templates/layout.xhtml">
+            <ui:define name="content">
+                <h:form class="form-horizontal">
+                    <div class="row">
+                        <h2>Create Test Suite</h2>
+                    </div>
+                    <div class="form-group">
+                        <label for="testSuiteName">Name</label>
+                        <h:message for="testSuiteName"/>
+                        <h:inputText value="#{createSuiteBean.testSuite.title}" required="true" id="testSuiteName" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="btn-group">
+                            <h:button value="Cancel" class="btn btn-primary" outcome="suiteList"/>
+                            <h:commandButton class="btn btn-success" value="Create" action="#{createSuiteBean.create()}" />
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="../templates/layout.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h2>Edit Test Case</h2>
+                    <h:messages class="alert alert-danger" />
+                    <table class="table">
+                        <tr>
+                            <td>
+                                Test Case Title
+                            </td> 
+                            <td>
+                                <h:inputText value="#{caseDetailsBean.testCase.title}" class="form-control" />
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                Test Case Body
+                            </td> 
+                            <td>
+                                <h:inputTextarea value="#{caseDetailsBean.testCase.body}" class="form-control" rows="3" />
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="btn-group">
+                                    <h:commandButton action="#{caseDetailsBean.cancelEdit()}" value="Cancel" class="btn btn-primary"/>
+                                    <h:commandButton action="#{caseDetailsBean.editSelectedCase()}" value="Save changes" class="btn btn-success"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </ui:define>
+            <ui:define name="right">
+                <h:form>
+                    <f:subview id="removeCase" rendered="#{request.isUserInRole('Admin')}">
+                        <h:commandButton action="#{caseDetailsBean.removeSelectedCase()}" value="Delete Test Case" class="btn btn-danger lonely" />
+                    </f:subview>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="../templates/layout.xhtml">
+            <ui:define name="content">
+                <h2>Details for #{runDetailsBean.testRun.title}</h2>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: #{runDetailsBean.testRun.passed}%" >
+                        #{runDetailsBean.testRun.passed}%
+                    </div>
+                    <div class="progress-bar progress-bar-danger" style="width: #{runDetailsBean.testRun.failed}%" >
+                        #{runDetailsBean.testRun.failed}%
+                    </div>
+                    <div class="progress-bar progress-bar-warning" style="width: #{runDetailsBean.testRun.retest}%" >
+                        #{runDetailsBean.testRun.retest}%
+                    </div>
+                    <div class="progress-bar progress-bar-info" style="width: #{runDetailsBean.testRun.blocked}%" >      
+                        #{runDetailsBean.testRun.blocked}%
+                    </div>
+                </div>
+                <h:form>
+                    <h:dataTable value="#{runDetailsBean.testResults}" var="result" class="table">
+                        <h:column>    				
+                            <f:facet name="header">Test Id</f:facet>    				
+                                #{result.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Title</f:facet>
+                                #{result.testCase.title}
+                        </h:column>
+                        F                        <h:column>
+                            <f:facet name="header">Result</f:facet>
+                            <h:selectOneMenu class="form-control" id="resultList" value="#{result.status}" valueChangeListener="#{runDetailsBean.resultHasChanged}" onchange="submit()">
+                                <f:selectItems value="#{runDetailsBean.statuses}" />
+                            </h:selectOneMenu>
+                        </h:column>
+                        <h:column>
+                            <h:commandButton action="#{runDetailsBean.viewSelectedResult()}" value="Details" class="btn btn-default" />
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+            <ui:define name="right">
+                <h:form>
+                    <f:subview id="removeRun" rendered="#{request.isUserInRole('Admin')}">
+                        <h:commandButton value="Delete Test Run" class="lonely btn btn-danger" action="#{runDetailsBean.removeSelectedRun}"/>
+                    </f:subview>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
